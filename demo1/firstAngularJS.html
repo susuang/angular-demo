@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>第一个angularjs代码</title>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div class="use-model">
+        <h1>hello world!</h1>
+        <input ng-model="person.name" type="text" placeholder="请输入你的名字">
+        <h1>hello,{{person.name}}!Welcome angularjs.my age is {{person.age}}.</h1>
+    </div>
+
+    <div class="clock" ng-controller="ClockController">
+        <h1>CLOCK!</h1>
+        <h5>{{clock.now}}</h5>
+    </div>
+    <script type="text/javascript">
+        var app = angular.module('myApp', []);
+        app.controller('ClockController',function($scope, $timeout){
+            $scope.person = {
+                name:''
+            };
+            $scope.clock = {
+                now: new Date()
+            };
+            var updateClock = function(){
+                $scope.clock.now = new Date();
+            }
+            setInterval(function(){
+                $scope.$apply(updateClock);
+            }, 1000);
+            updateClock();
+            $scope.person.age = 24;
+            console.info($scope.person);
+        });
+    </script>
+</body>
+</html>
