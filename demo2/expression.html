@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>表达式</title>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="ExpressionController">
+        <input ng-model="exprt" type="text" placeholder="please enter expression" />
+        <p>newValue:{{newValue}}</p>
+        <p>oldValue:{{oldValue}}</p>
+        <p>parsedValue:{{parsedValue}}</p>
+    </div>
+    <div>
+        <h1>插值字符串</h1>
+    </div>
+    <script type="text/javascript">
+        angular.module('myApp', [])
+        .controller('ExpressionController', function($scope, $parse){
+            $scope.person = {
+                name: "Ari Lerner"
+            };
+            $scope.$watch('exprt', function(newval, oldval, scope){
+                $scope.newValue = newval;
+                $scope.oldValue = oldval;
+
+                if (newval !== oldval) {
+                    var parseFunc = $parse(newval);
+                    scope.parsedValue = parseFunc(scope);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
