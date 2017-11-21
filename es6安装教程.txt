@@ -1,0 +1,11 @@
+http://blog.csdn.net/liuhe688/article/details/51212393
+1、安装babel编译器： npm install -g babel-cli
+2、创建一个项目，新建2个文件夹：es6(用于放置es6文件)和js(用于放置编译后的js文件)。
+3、在当前目录执行：npm init –yes，生成一个默认的package.json文件。
+4、在当前目录执行：npm install babel-preset-es2015 --save-dev，安装ES6转码规则包。
+5、测试。在es6文件夹中新建一个“test.es6”文件，在js文件夹中新建一个“test.js”文件。
+    在test.es6复制下列es6代码： let name = 'Scott';
+                                let greeting = `hello ${name}`;
+                                console.log(greeting);
+    然后编译成js代码：babel es6/test.es6 --out-file js/test.js --presets es2015
+    可以在text.js中看到编译后的代码。
