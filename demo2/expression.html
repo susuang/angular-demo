@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
     <title>表达式</title>
     <meta charset="utf-8">
     <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
 </head>
-<body ng-app="myApp">
-    <div ng-controller="ExpressionController">
+<body ng-controller="ExpressionController">
+    <div>
         <input ng-model="exprt" type="text" placeholder="please enter expression" />
         <p>newValue:{{newValue}}</p>
         <p>oldValue:{{oldValue}}</p>
@@ -14,10 +14,15 @@
     </div>
     <div>
         <h1>插值字符串</h1>
+        <h5>电子邮件实时变化</h5>
+        send:<input ng-model="send" type="text" placeholder="please enter sender">
+        to:<input ng-model="to" type="text" placeholder="please enter recipient" />
+        <textarea ng-model="emailbody" cols="10" rows="10"></textarea>
+        <pre>{{previewText}}</pre>
     </div>
     <script type="text/javascript">
         angular.module('myApp', [])
-        .controller('ExpressionController', function($scope, $parse){
+        .controller('ExpressionController', function($scope, $parse, $interpolate){
             $scope.person = {
                 name: "Ari Lerner"
             };
@@ -28,6 +33,21 @@
                 if (newval !== oldval) {
                     var parseFunc = $parse(newval);
                     scope.parsedValue = parseFunc(scope);
+                }
+            });
+            $scope.$watch("emailbody", function(newval, oldval, scope){
+                if(newval !== oldval){
+                    var interpolateFunc = $interpolate('send:{{sender}},to:{{to}},msg:{{msg}}');
+                    if(newval){
+                        var data = {
+                            sender:scope.send,
+                            to:scope.to,
+                            msg: newval
+                        }
+                        scope.previewText = interpolateFunc(data);
+                    }else{
+                        scope.previewText = "";
+                    }
                 }
             });
         });
