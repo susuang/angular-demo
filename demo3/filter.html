@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>过滤器</title>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-controller="filterController">
+    <h1>一、angularjs内置过滤器</h1>
+    <section>
+        <h3>1、currency货币</h3>
+        <h5>{{50 | currency:'￥'}}</h5>
+        <h5>{{12.56 | currency:'￥':1}}</h5>
+    </section>
+    <section>
+        <h3>2、number数值</h3>
+        <h5>{{100 | number:2}}</h5>
+        <h5>{{1.321 | number:2}}</h5>
+    </section>
+    <section>
+        <h3>3、lowercase将字符串转换为小写</h3>
+        <h5>{{'HeLLo' | lowercase}}</h5>
+    </section>
+    <section>
+        <h3>4、uppercase将字符串转换为大写</h3>
+        <h5>{{'HeLLo' | uppercase}}</h5>
+    </section>
+    <section>
+        <h3>5、json过滤器可以将一个JSON或者JavaScript对象转换成字符串。</h3>
+        <h5>{{ {name:"dreamapple",language:"AngularJS"} | json}}</h5>
+    </section>
+    <section>
+        <h3>6、date过滤器</h3>
+        <h5>{{ today | date: "yyyy-mm-dd hh:mm:ss"}}</h5>
+    </section>
+    <section>
+        <h3>7、demo1中的时钟</h3>
+        <h5>{{ clock.now | date: "yyyy-mm-dd hh:mm:ss"}}</h5>
+    </section>
+    <section>
+        <h3>8、filter常用于过滤需要展示的内容。如查询时模糊查询</h3>
+        <input ng-model="searchText" type="text" />
+        <pre><span ng-repeat="x in searchArry | filter:searchText">{{x}}</span></pre>
+    </section>
+    <section>
+        <h3>9、limitTo用于限制长度</h3>
+        {{'welcome coming angularJS' | limitTo:3}}<br />
+        {{'welcome coming angularJS' | limitTo:-6}}<br />
+        {{['Ari', 'Lener', 'Likes', 'To', 'Eat', 'Pizza'] | limitTo:3}}<!-- 如果是数组的话3代表的是数组的个数 -->
+    </section>
+    <script type="text/javascript">
+        angular.module('myApp', [])
+        .controller('filterController', function($scope){
+            $scope.today = new Date();
+            $scope.clock = {
+                now: new Date()
+            };
+            var updateClock = function(){
+                $scope.clock.now = new Date();
+            }
+            setInterval(function(){
+                $scope.$apply(updateClock);
+            }, 1000);
+
+            //模糊查询
+            $scope.searchArry = ['Ari', 'Lener', 'Likes', 'To', 'Eat', 'Pizza'];//字符串
+            /*$scope.$watch('searchText', function(newval, oldval, scope){
+                if(newval){
+
+                }else{
+                    scope.searchValue = searchArry;
+                }
+            });*/
+        })
+    </script>
+</body>
+</html>
