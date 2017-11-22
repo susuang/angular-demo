@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>表单验证</title>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/formValidity.js"></script>
+</head>
+<body>
+   <form name="myForm">
+        <div>  
+            整数(0-10):  
+            <input type="number" ng-model="size" name="size" min="0" max="10" integer/>  
+            {{size}}  
+            <br/>  
+            <span ng-show="myForm.size.$error.integer">不是合法的整数！</span>  
+            <span ng-show="myForm.size.$error.min || myForm.size.$error.max">  
+                数值必须位于0到10之间！  
+            </span>  
+        </div>
+   </form>
+   <script type="text/javascript">
+        angular.module('myApp', ['formDirective']);
+   </script>
+</body>
+</html>
