@@ -8,18 +8,68 @@
     <script src="../js/formValidity.js"></script>
 </head>
 <body>
-   <form name="myForm">
-        <div>  
-            整数(0-10):  
-            <input type="number" ng-model="size" name="size" min="0" max="10" integer/>  
-            {{size}}  
-            <br/>  
-            <span ng-show="myForm.size.$error.integer">不是合法的整数！</span>  
-            <span ng-show="myForm.size.$error.min || myForm.size.$error.max">  
-                数值必须位于0到10之间！  
-            </span>  
-        </div>
-   </form>
+    <header>表单验证</header>
+    <form name="myForm">
+        <section>
+            <h1>html5表单验证</h1>
+            <div>
+                <h5>name</h5>
+                <input type="text" ng-model="user.name" name="name" required ng-pattern="/^[a-zA-Z][a-zA-Z0-9_]{5,15}$/i"/>
+                <cite ng-show="myForm.name.$error.pattern">用户名不合法（字母开头，允许6-16字节，允许字母数字下划线）</cite>
+                <cite ng-show="myForm.name.$error.required">名称为必填项</cite>
+            </div>
+            <div>
+                <h5>email</h5>
+                <input type="email" ng-model="user.email" name="email" required/>
+                <cite ng-show="myForm.email.$error.email">email格式错误</cite>
+                <cite ng-show="myForm.email.$error.required">email为必填项</cite>
+            </div>
+            <div>
+                <h5>githup地址</h5>
+                <input type="url" ng-model="user.githup" name="githup" />
+                <cite ng-show="myForm.githup.$error.githup">githup地址错误</cite>
+            </div>
+            <div>
+                <h5>年龄</h5>
+                <input type="number" ng-model="user.age" name="age"  min="0" max="10" integer/>
+                <cite ng-show="myForm.age.$error.integer">不是合法的整数！</cite>  
+                <cite ng-show="myForm.age.$error.min || myForm.age.$error.max">  
+                数值必须位于0到10之间！</cite>
+            </div>
+        </section>
+        <hr />
+        <section>
+            <h1>angularjs指令表单验证</h1>
+            <div>
+                <h5>整数</h5>
+                <input type="text" ng-model="ngu.integer" name="integer" integer/>
+                <cite ng-show="myForm.integer.$error.integer && myForm.ngu.integer!=''">输入项不为整数</cite>
+            </div>
+            <div>
+                <h5>浮点数</h5>
+                <input type="text" ng-model="ngu.float" name="float" float/>
+                <cite ng-show="myForm.float.$error.float">输入项不为浮点数</cite>
+            </div>
+            <div>
+                <h5>电话号码</h5>
+                <input type="text" ng-model="ngu.telephone" name="telephone" telephone/>
+                <cite ng-show="myForm.telephone.$error.telephone">电话号码不符合规范</cite>
+            </div>
+            <div>
+                <h5>手机号码</h5>
+                <input type="text" ng-model="ngu.mobilePhone" name="mobilePhone" integer/>
+                <cite ng-show="myForm.mobilePhone.$error.integer">手机号码不符合规范</cite>
+            </div>
+            <div>
+                <h5>身份证</h5>
+                <input type="text" ng-model="ngu.idcard" name="idcard" idcard/>
+                <cite ng-show="myForm.idcard.$error.idcard">身份证不符合规范</cite>
+            </div>
+        </section>
+        <section>
+            <h1>angularjs指令表单验证在失焦时验证</h1>
+        </section>
+    </form>
    <script type="text/javascript">
         angular.module('myApp', ['formDirective']);
    </script>
