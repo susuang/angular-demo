@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>指令</title>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/formValidity.js"></script>
+</head>
+<body>
+    <header>向指令传递参数</header>
+    <h3>虽然有许多方法设置指令里面的值。但为了指令的可重复利用性，最好使用隔离作用域进行设置</h3>
+    <h3>方法：1、此时一般我们也需要用html外部属性的方式进行传递参数。2、然后在独立作用域里使用'@'绑定策略。3、然后用'{{ }}'表达式的形式获取到参数</h3>
+    <section>
+        <h2>例子</h2>
+        <div my-directive my-text="百度" my-attr="{{myUrl}}"></div>
+    </section>
+    <script type="text/javascript">
+    angular.module('myApp', [])
+    .directive('myDirective', function(){
+        return {
+            restrict: 'A',//E(元素)、A(属性)、C(类)、M(注释)https://www.baidu.com
+            replace: true,//true则代替指令属性
+            scope: {//独立作用域
+                myUrl: '@myAttr',
+                myText: '@',
+            },
+            template: "<input type='text' ng-model='myUrl'><a href='{{myUrl}}'>{{myText}}</a>"
+        };
+    });
+    </script>
+</body>
+</html>
